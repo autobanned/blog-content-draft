@@ -80,7 +80,21 @@ Untuk menggenerate server *key* dan server *certificate* kita akan pindah satu d
 cd easy-rsa
 . ./vars
 ```
-perhatikan tanda spasi (white space) diantara titik, saat meng*generate* pki diatas. 
+<font size="-2">perhatikan tanda spasi (white space) diantara titik, saat meng*generate* pki diatas. </font>
+Saat menjalankan perintah diatas kita akan mendapatkan notif :
+```NOTE: If you run ./clean-all, I will be doing a rm -rf on /etc/openvpn/easy-rsa/keys
+```
+Selanjutnya jalankan clean-all untuk mencegah *key* lain yang mungkin konflik dengan *key* server kita nanti.
+```
+./clean-all
+```
+
+Setelah itu kita akan membuat server *certificate* dan server *key* untuk `OpenVPN` server kita.
+
+*Generate certificate* server 
+```php
+./build-key-server server
+```
 
 
 
