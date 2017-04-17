@@ -41,6 +41,7 @@ Beberapa perubahan utama yang akan kita buat pada file konfig adalah:
 * Meneruskan *web traffic* ke alamat tujuan
 * Mencegah bocornya DNS *request* keluar dari koneksi VPN 
 * Menyetting *permission*
+
 tapi kita menyesuaikan settingan file konfig di `server.conf` kita akan terlebih dahulu membuat sertifikat dan key, yang akan digunakan sebagai autentikasi untuk `OpenVPN` server kita.
 Pertama kita akan meng*copy* `Easy-rsa` *generation script*
 ```php
