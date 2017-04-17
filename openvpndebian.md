@@ -33,7 +33,15 @@ Untuk mengcopy file *sample* ini dan meletakannya di direktori `/etc/openvpn` ki
 sudo gunzip -c /usr/share/doc/openvpn/examples/sample-config-files/server.conf.gz > /etc/openvpn/server.conf
 ```
 
-Selanjutnya sebelum kita menyesuaikan settingan file konfig di `server.conf` kita akan terlebih dahulu membuat sertifikat dan key, yang akan digunakan sebagai autentikasi untuk `OpenVPN` server kita.
+Selanjutnya kita akan menyetting dan menyesuaikan file konfigurasi `server.conf` ini.
+
+Beberapa perubahan utama yang akan kita buat pada file konfig adalah:
+
+* Meningkatkan level enkripsi openvpn server 
+* Meneruskan *web traffic* ke alamat tujuan
+* Mencegah bocornya DNS *request* keluar dari koneksi VPN 
+* Menyetting *permission*
+tapi kita menyesuaikan settingan file konfig di `server.conf` kita akan terlebih dahulu membuat sertifikat dan key, yang akan digunakan sebagai autentikasi untuk `OpenVPN` server kita.
 Pertama kita akan meng*copy* `Easy-rsa` *generation script*
 ```php
 cp -r /usr/share/easy-rsa/ /etc/openvpn
@@ -57,23 +65,21 @@ export KEY_OU="MYOrganizationalUnit"
 ```
 sedang variable lain, tidak perlu diganti kecuali memang paham apa yang akan dilakukan.
 
-Selanjutnya kita akan pindah ke direktori `/etc/openvpn` untuk meng*generate* *Diffie-Helman* parameter menggunakan *tool* bawaan dari OPENSSL bernama `dhparam`
+Selanjutnya kita akan pindah ke direktori `/etc/openvpn` untuk meng*generate* *Diffie-Helman* parameter menggunakan *tool* bawaan dari OPENSSL bernama `dhparam` untuk *certificate* ca 
 ```css
 cd /etc/openvpn
 openssl dhparam -out /etc/openvpn/easy-rsa/keys/dh4096.pem 4096
 ```
 opsi -out diatas mendefinisikan lokasi output hasil *generate* dari dhparam.
 
+Dengan demikian *certificate* ca kita telah siap, selanjutnya kita akan meng*generate* *certificate* server  dan server *key*.
 
-Selanjutnya kita akan menyetting dan menyesuaikan file konfigurasi `server.conf` ini.
-
-Beberapa hal utama yang akan kita ubah pada file konfig adalah:
-
-* Meningkatkan level enkripsi openvpn server
-* Meneruskan *web traffic* ke alamat tujuan
-* Mencegah bocornya DNS *request* keluar dari koneksi VPN 
-* Menyetting *permission*
-
+Untuk menggenerate server *key* dan server *certificate* kita akan pindah satu direktori ke direktory *easy-rsa* dan meng*generate* pki (Public Key Infrastructure) dari file `vars` yang telah kita setting variablenya sebelumnya
+```php
+cd easy-rsa
+. ./vars
+```
+perhatikan tanda spasi (white space) diantara titik, saat meng*generate* pki diatas. 
 
 
 
