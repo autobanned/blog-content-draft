@@ -182,5 +182,20 @@ Selanjutnya kita akan membuat user tanpa login shell dan menyetting `user` dan `
 ```php
 sudo adduser --system --shell /usr/sbin/nologin --no-create-home openvpn_server
 ```
+kemudian cari baris berikut, hapus *comment*nya dan ganti *user*nya.
+```php
+# You can uncomment this out on
+# non-Windows systems.
+;user nobody
+;group nogroup
+```
+menjadi seperti ini 
+```php
+# You can uncomment this out on
+# non-Windows systems.
+user openvpn_server
+group nogroup
+```
+
 
 
