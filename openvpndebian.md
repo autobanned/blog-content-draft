@@ -149,8 +149,29 @@ beberapa hal yang akan kita ubah:
 # Substitute 2048 for 1024 if you are using
 # 2048 bit keys.
 dh dh1024.pem
+
+
+
 ```
-mengubah dhparam dari 1024 ke 4096, sesuai dengan nilai key dhparam yang kita buat sebelumnya, yang mana menggunakan keys 4096 bit.
+* mengubah dhparam dari default 1024 ke 4096, sesuai dengan nilai key `dhparam` yang kita buat sebelumnya.
+
+```php
+;push "redirect-gateway def1 bypass-dhcp"
+```
+* ijinkan opsi push "redirect-gateway" dengan menghapus *comment (;)*nya.
+
+```php
+# Certain Windows-specific network settings
+# can be pushed to clients, such as DNS
+# or WINS server addresses.  CAVEAT:
+# http://openvpn.net/faq.html#dhcpcaveats
+# The addresses below refer to the public
+# DNS servers provided by opendns.com.
+;push "dhcp-option DNS 208.67.222.222"
+;push "dhcp-option DNS 208.67.220.220"
+```
+* hapus *comment* dari opsi `push "dhcp-option"` dan gantilah alamt DNS dengan alamat DNS yang kita ingin gunakan.
+Kita bisa menggunakan opsi DNS dari (daftar public DNS ini)[http://public-dns.info/].
 
 
 
