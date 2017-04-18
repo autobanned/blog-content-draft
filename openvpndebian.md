@@ -37,10 +37,10 @@ Selanjutnya kita akan menyetting dan menyesuaikan file konfigurasi `server.conf`
 
 Beberapa perubahan utama yang akan kita buat pada file konfig adalah:
 
-* Meningkatkan level enkripsi openvpn server 
+* Meningkatkan level enkripsi 
 * Meneruskan *web traffic* ke alamat tujuan
 * Mencegah bocornya DNS *request* keluar dari koneksi VPN 
-* Menyetting *permission*
+* Menyetting *permission* dan memperkuatnya
 
 tapi kita menyesuaikan settingan file konfig di `server.conf` kita akan terlebih dahulu membuat sertifikat dan key, yang akan digunakan sebagai autentikasi untuk `OpenVPN` server kita.
 Pertama kita akan meng*copy* `Easy-rsa` *generation script*
@@ -130,11 +130,29 @@ Sign the certificate? [y/n]
 ```
 <sup>seluruh pertanyaan challenge question sebaiknya dibiarkan bernilai default saja dengan menekan `enter`, karna kita sudah menyetting nilai variabelnya di file `vars`. Untuk extra pada saat membuat server *key* dan server *certificate* biarkan bernilai kosong.</sup>
 
-Setelah itu, selanjutnya kita akan mengcopy semua file kedalam directory *keys* yang sudah kita buat sebelumnya dan merubah permission dari direktori tersebut
+Setelah itu, selanjutnya kita akan mengcopy semua file kedalam directory *keys* yang sudah kita buat sebelumnya  dan merubah permission dari direktori tersebut supaya lebih aman.
 ```php
 sudo cp /etc/openvpn/easy-rsa/keys/{server.crt,server.key,ca.crt} /etc/openvpn
 sudo chmod 400 /etc/openvpn/easy-rsa/keys
 ```
+
+Selanjutnya kita akan kembali ke directory `openvpn` untuk melanjutkan mengubah settingan dari file config.
+```php
+cd /etc/openvpn
+sudo nano server.conf
+```
+beberapa hal yang akan kita ubah:
+```php
+# Diffie hellman parameters.
+# Generate your own with:
+#   openssl dhparam -out dh1024.pem 1024
+# Substitute 2048 for 1024 if you are using
+# 2048 bit keys.
+dh dh1024.pem
+```
+mengubah dhparam dari 1024 ke 4096, sesuai dengan nilai key dhparam yang kita buat sebelumnya, yang mana menggunakan keys 4096 bit.
+
+
 
 
 
