@@ -14,9 +14,17 @@ Untuk dapat menggunakan `vpn` kita saat ini dapat membeli layanan jasa `vpn` ja$
 
 
 #### Jenis dan Type
-VPN sendiri memiliki beberapa type dan jenis yang berbeda, secara 
+VPN sendiri berdasarkan protocol dan cara kerjanya dibedakan menjadi beberapa jenis
 
 <ul>
 <li> PPTP VPN</li>
 Jenis ini adalah vpn yang paling banyak digunakan
+
+
+<li> L2TP VPN</li>
+
+<li> SSTP VPN</li>
+
+<li> OpenVPN</li>
+
 
