@@ -171,7 +171,7 @@ dh dh1024.pem
 ;push "dhcp-option DNS 208.67.220.220"
 ```
 * hapus *comment* dari opsi `push "dhcp-option"` dan gantilah alamt DNS dengan alamat DNS yang kita ingin gunakan.
-Kita bisa menggunakan opsi DNS dari (daftar public DNS ini)[http://public-dns.info].
+Kita bisa menggunakan opsi DNS dari [daftar public DNS ini](http://public-dns.info)
 
 
 
