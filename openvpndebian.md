@@ -45,15 +45,15 @@ Beberapa perubahan utama yang akan kita buat pada file konfig adalah:
 tapi kita menyesuaikan settingan file konfig di `server.conf` kita akan terlebih dahulu membuat sertifikat dan key, yang akan digunakan sebagai autentikasi untuk `OpenVPN` server kita.
 Pertama kita akan meng*copy* `Easy-rsa` *generation script*
 ```php
-cp -r /usr/share/easy-rsa/ /etc/openvpn
+sudo cp -r /usr/share/easy-rsa/ /etc/openvpn
 ```
 Selanjutnya buat direktori tempat kita menyimpan key dan sertifikat `OpenVPN` kita.
 ```php
-mkdir /etc/openvpn/easy-rsa/keys
+sudo mkdir /etc/openvpn/easy-rsa/keys
 ```
 Setelah itu kita akan menyetting parameter untuk *certificate* kita sebelum sertifikat itu di buat.
 ```php
-nano /etc/openvpn/easy-rsa/vars
+sudo nano /etc/openvpn/easy-rsa/vars
 ```
 Pada file ini variable berikut adalah yg perlu diganti dan dibuat sesuai informasi kita inginkan:
 ```php
@@ -69,7 +69,7 @@ sedang variable lain, tidak perlu diganti kecuali memang paham apa yang akan dil
 Selanjutnya kita akan pindah ke direktori `/etc/openvpn` untuk meng*generate* *Diffie-Helman* parameter menggunakan *tool* bawaan dari OPENSSL bernama `dhparam` 
 ```php
 cd /etc/openvpn
-openssl dhparam -out /etc/openvpn/easy-rsa/keys/dh4096.pem 4096
+sudo openssl dhparam -out /etc/openvpn/easy-rsa/keys/dh4096.pem 4096
 ```
 opsi -out diatas mendefinisikan lokasi output hasil *generate* dari dhparam.
 
@@ -78,7 +78,7 @@ Dengan demikian *dhparam*  kita telah berhasil dibuat, selanjutnya kita akan men
 Untuk menggenerate server *key* dan server *certificate* kita akan pindah satu direktori ke direktory *easy-rsa* dan meng*generate* pki (Public Key Infrastructure) dari file `vars` yang telah kita setting variablenya sebelumnya
 ```php
 cd easy-rsa
-. ./vars
+sudo . ./vars
 ```
 <sup>perhatikan tanda spasi (white space) diantara titik, saat meng*generate* pki diatas. </sup>
 
@@ -88,8 +88,8 @@ NOTE: If you run ./clean-all, I will be doing a rm -rf on /etc/openvpn/easy-rsa/
 ```
 Selanjutnya jalankan clean-all untuk mencegah *key* lain yang mungkin konflik dengan *key* server kita nanti, dan membuat ca *certificate*
 ```
-./clean-all
-./build-ca
+sudo ./clean-all
+sudo ./build-ca
 ```
 Perintah `./build-ca` diatas akan memanggil open-ssl interaktif dan memberikan beberapa *challange question* seperti berikut:
 ```php
@@ -116,7 +116,7 @@ Email Address [me@myhost.mydomain]:
 Dengan demikian kita sudah memiliki *certificate* ca master kita, selanjutnya kita akan membuat  *key* server dan *certificate* server untuk openvpn server dengan perintah berikut:
 
 ```php
-./build-key-server server
+sudo ./build-key-server server
 ```
 kita akan kembali mendapatkan *challenge question* interaktif dengan tambahan extra 2 pertanyaan seperti ini:
 ```
@@ -130,8 +130,11 @@ Sign the certificate? [y/n]
 ```
 <sup>seluruh pertanyaan challenge question sebaiknya dibiarkan bernilai default saja dengan menekan `enter`, karna kita sudah menyetting nilai variabelnya di file `vars`. Untuk extra pada saat membuat server *key* dan server *certificate* biarkan bernilai kosong.</sup>
 
-
-
+Setelah itu, selanjutnya kita akan mengcopy semua file kedalam directory *keys* yang sudah kita buat sebelumnya dan merubah permission dari direktori tersebut
+```php
+sudo cp /etc/openvpn/easy-rsa/keys/{server.crt,server.key,ca.crt} /etc/openvpn
+sudo chmod 400 /etc/openvpn/easy-rsa/keys
+```
 
 
 
