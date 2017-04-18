@@ -51,6 +51,11 @@ Selanjutnya buat direktori tempat kita menyimpan key dan sertifikat `OpenVPN` ki
 ```php
 sudo mkdir /etc/openvpn/easy-rsa/keys
 ```
+kemudian buat *symbolic links* dari `openssl-1.0.0.cnf` ke `openssl.cnf`:
+```php
+sudo ln -s openssl-1.0.0.cnf openssl.cnf
+```
+
 Setelah itu kita akan menyetting parameter untuk *certificate* kita sebelum sertifikat itu di buat.
 ```php
 sudo nano /etc/openvpn/easy-rsa/vars
@@ -173,8 +178,8 @@ dh dh1024.pem
 * hapus *comment* dari opsi `push "dhcp-option"` dan gantilah alamt DNS dengan alamat DNS yang kita ingin gunakan.
 Kita bisa menggunakan opsi DNS dari [daftar public DNS ini](http://public-dns.info)
 
-
-
-
-
+Selanjutnya kita akan membuat user dan menyetting `user` dan `group`, karna secara *default* `openvpn` berjalan dengan akun *root* atau superuser, maka untuk menngurangi resiko keamanan kita akan merubah ini, agar setelah berjalan di *background* openvpn server menurukan *privileges*nya menjadi user yang baru kita buat.
+```php
+sudo adduser --system --shell /usr/sbin/nologin --no-create-home openvpn_server
+```
 
