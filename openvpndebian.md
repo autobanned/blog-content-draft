@@ -178,7 +178,7 @@ dh dh1024.pem
 * hapus *comment* dari opsi `push "dhcp-option"` dan gantilah alamt DNS dengan alamat DNS yang kita ingin gunakan.
 Kita bisa menggunakan opsi DNS dari [daftar public DNS ini](https://www.lifewire.com/free-and-public-dns-servers-2626062)
 
-Selanjutnya kita akan membuat user tanpa login shell dan menyetting `user` dan `group`, karna secara *default* `openvpn` berjalan dengan akun *root* atau superuser, maka untuk menngurangi resiko keamanan kita akan merubah ini, agar setelah berjalan di *background* openvpn server menurukan *privileges*nya menjadi user yang baru kita buat.
+Selanjutnya kita akan membuat user tanpa login shell dan *privileges root* dan menyetting `user` dan `group`, karna secara *default* `openvpn` berjalan dengan akun *root* atau superuser, maka untuk meningkatkan keamanan kita akan merubah ini, agar setelah berjalan di *background* openvpn server menurukan *privileges*nya menjadi user yang baru kita buat.
 ```php
 sudo adduser --system --shell /usr/sbin/nologin --no-create-home openvpn_server
 ```
@@ -195,6 +195,29 @@ menjadi seperti ini
 # non-Windows systems.
 user openvpn_server
 group nogroup
+```
+
+Opsi lain yang bisa ditambahkan atau di ubah untuk memperkuat openvpn server kita seperti
+* merubah *chipper* dari 128 menjadi 256
+```php
+echo 'cipher AES-256-CBC' >> /etc/openvpn/server.conf
+```
+* merubah auth dari default SHA-1 dengan SHA-2 512
+```php
+echo 'auth SHA512' >> /etc/openvpn/server.conf
+```
+* meningkatkan VPN kontrol channel dengan *chipper suite* yang lebih kuat sesuai refrensi [disini](https://community.openvpn.net/openvpn/wiki/Hardening#Useof--tls-cipher)
+```php
+echo 'tls-cipher TLS-DHE-RSA-WITH-AES-256-GCM-SHA384:TLS-DHE-RSA-WITH-AES-128-GCM-SHA256:TLS-DHE-RSA-WITH-AES-256-CBC-SHA:TLS-DHE-RSA-WITH-CAMELLIA-256-CBC-SHA:TLS-DHE-RSA-WITH-AES-128-CBC-SHA:TLS-DHE-RSA-WITH-CAMELLIA-128-CBC-SHA' >> /etc/openvpn/server.conf        
+```
+
+
+
+
+
+Selanjutnya *save* dan *restart service* openvpn server
+```php
+systemctl restart openvpn
 ```
 
 
