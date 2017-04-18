@@ -147,24 +147,31 @@ cd /etc/openvpn
 sudo nano server.conf
 ```
 beberapa hal yang akan kita ubah:
+
+* mendefinisikan lokasi sertifikat master ca, dan server *certificate* and server *key* berada
+```
+# Any X509 key management system can be used.
+# OpenVPN can also use a PKCS #12 formatted key file
+# (see "pkcs12" directive in man page).
+ca /etc/openvpn/keys/ca.crt
+cert /etc/openvpn/keys/openvpn-server.crt
+key /etc/openvpn/keys/openvpn-server.key 
+```
+* mengubah dhparam dari default 1024 ke 4096, sesuai dengan nilai key `dhparam` yang kita buat sebelumnya.
 ```php
 # Diffie hellman parameters.
 # Generate your own with:
 #   openssl dhparam -out dh1024.pem 1024
 # Substitute 2048 for 1024 if you are using
 # 2048 bit keys.
-dh dh1024.pem
-
-
-
+dh dh4096.pem
 ```
-* mengubah dhparam dari default 1024 ke 4096, sesuai dengan nilai key `dhparam` yang kita buat sebelumnya.
-
+* ijinkan opsi push "redirect-gateway" dengan menghapus *comment(;)* nya.
 ```php
 ;push "redirect-gateway def1 bypass-dhcp"
 ```
-* ijinkan opsi push "redirect-gateway" dengan menghapus *comment(;)* nya.
-
+* hapus *comment* dari opsi `push "dhcp-option"` dan gantilah alamt DNS dengan alamat DNS yang kita ingin gunakan.
+Kita bisa menggunakan opsi DNS dari [daftar public DNS ini](https://www.lifewire.com/free-and-public-dns-servers-2626062)
 ```php
 # Certain Windows-specific network settings
 # can be pushed to clients, such as DNS
@@ -175,8 +182,6 @@ dh dh1024.pem
 ;push "dhcp-option DNS 208.67.222.222"
 ;push "dhcp-option DNS 208.67.220.220"
 ```
-* hapus *comment* dari opsi `push "dhcp-option"` dan gantilah alamt DNS dengan alamat DNS yang kita ingin gunakan.
-Kita bisa menggunakan opsi DNS dari [daftar public DNS ini](https://www.lifewire.com/free-and-public-dns-servers-2626062)
 
 Selanjutnya kita akan membuat user tanpa login shell dan *privileges root* dan menyetting `user` dan `group`, karna secara *default* `openvpn` berjalan dengan akun *root* atau superuser, maka untuk meningkatkan keamanan kita akan merubah ini, agar setelah berjalan di *background* openvpn server menurukan *privileges*nya menjadi user yang baru kita buat.
 ```php
@@ -210,10 +215,19 @@ echo 'auth SHA512' >> /etc/openvpn/server.conf
 ```php
 echo 'tls-cipher TLS-DHE-RSA-WITH-AES-256-GCM-SHA384:TLS-DHE-RSA-WITH-AES-128-GCM-SHA256:TLS-DHE-RSA-WITH-AES-256-CBC-SHA:TLS-DHE-RSA-WITH-CAMELLIA-256-CBC-SHA:TLS-DHE-RSA-WITH-AES-128-CBC-SHA:TLS-DHE-RSA-WITH-CAMELLIA-128-CBC-SHA' >> /etc/openvpn/server.conf        
 ```
-
-
-
-
+* menggunakan opsi --tls-auth
+Untuk menggunakan opsi ini, kita harus meng*generate*nya terlebih dahulu
+```php
+openvpn --genkey --secret easy-rsa/keys/ta.key
+```
+Kemudian ubah opsi tls-auth di config menjadi seperti ini
+```php
+# The server and each client must have
+# a copy of this key.
+# The second parameter should be '0'
+# on the server and '1' on the clients.
+tls-auth /etc/openvpn/easy-rsa/keys/ta.key 0 # This file is secret
+```
 
 Selanjutnya *save* dan *restart service* openvpn server
 ```php
