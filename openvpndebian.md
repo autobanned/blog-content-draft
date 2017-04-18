@@ -185,7 +185,7 @@ Kita bisa menggunakan opsi DNS dari [daftar public DNS ini](https://www.lifewire
 
 Selanjutnya kita akan membuat user tanpa login shell dan *privileges root* dan menyetting `user` dan `group`, karna secara *default* `openvpn` berjalan dengan akun *root* atau superuser, maka untuk meningkatkan keamanan kita akan merubah ini, agar setelah berjalan di *background* openvpn server menurukan *privileges*nya menjadi user yang baru kita buat.
 ```php
-sudo adduser --system --shell /usr/sbin/nologin --no-create-home openvpn_server
+sudo adduser --system --shell /usr/sbin/nologin --no-create-home openvpn
 ```
 kemudian cari baris berikut, hapus *comment*nya dan ganti *user*nya.
 ```php
@@ -198,7 +198,7 @@ menjadi seperti ini
 ```php
 # You can uncomment this out on
 # non-Windows systems.
-user openvpn_server
+user openvpn
 group nogroup
 ```
 
@@ -218,7 +218,7 @@ echo 'tls-cipher TLS-DHE-RSA-WITH-AES-256-GCM-SHA384:TLS-DHE-RSA-WITH-AES-128-GC
 * menggunakan opsi --tls-auth
 Untuk menggunakan opsi ini, kita harus meng*generate*nya terlebih dahulu
 ```php
-openvpn --genkey --secret easy-rsa/keys/ta.key
+sudo openvpn --genkey --secret easy-rsa/keys/ta.key
 ```
 Kemudian ubah opsi tls-auth di config menjadi seperti ini
 ```php
@@ -229,10 +229,61 @@ Kemudian ubah opsi tls-auth di config menjadi seperti ini
 tls-auth /etc/openvpn/easy-rsa/keys/ta.key 0 # This file is secret
 ```
 
+Selanjutnya kita akan mengkonfigurasi firewall dan enable *packet forwarding*
+* enable *packet forwarding* untuk mengijinkan opsi ini maka kita akan merubah baris di `/etc/sysctl.conf`
+dari 
+```php
+# Uncomment the next line to enable packet forwarding for IPv4
+#net.ipv4.ip_forward=1
+```
+menjadi seperti ini
+```php
+# Uncomment the next line to enable packet forwarding for IPv4
+net.ipv4.ip_forward=1
+```
+* Install dan Setting `ufw`. UFW adalah front-end untuk mempermudah manajemen dan administrasi dari linux IPTables.
+```php
+sudo apt install ufw
+```
+kemudian ubah default *policy*
+dari seperti ini
+```
+DEFAULT_FORWARD_POLICY="DROP"
+```
+menjadi 
+```php
+DEFAULT_FORWARD_POLICY="ACCEPT"
+```
+Selanjutnya kita akan menambahkan rules baru untuk `openvpn` pada UFW.
+```
+nano /etc/ufw/before.rules
+```
+kemudian tambahkan baris berikut sebelum baris terahir `Don't delete`:
+```php
+# START OPENVPN RULES
+# NAT table rules
+*nat
+:POSTROUTING ACCEPT [0:0]
+# Allow traffic from OpenVPN client to eth0
+-A POSTROUTING -s 10.8.0.0/8 -o eth0 -j MASQUERADE
+COMMIT
+# END OPENVPN RULES
+```
+Swlanjutnya kita akan mengijinkan koneksi service seperti ssh, web server serta openvpn ke ufw dan menjalankan ufw *service*
+```php
+sudo ufw allow ssh
+sudo ufw allow http
+sudo ufw allow https
+sudo ufw allow 1194/udp
+sudo ufw enable
+```
+jika kita ingin mengecek status ufw bisa dilakukan dengan perintah:
+```php
+sudo ufw status
+```
 Selanjutnya *save* dan *restart service* openvpn server
 ```php
 systemctl restart openvpn
 ```
 
-
-
+Selanjutnya kita akan meng*generate* dan setting *certificate* untuk client
