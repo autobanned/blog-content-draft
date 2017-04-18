@@ -51,7 +51,7 @@ Selanjutnya buat direktori tempat kita menyimpan key dan sertifikat `OpenVPN` ki
 ```php
 mkdir /etc/openvpn/easy-rsa/keys
 ```
-Setelah itu kita akan menyetting parameter untuk sertifikat kita sebelum sertifikat itu di buat.
+Setelah itu kita akan menyetting parameter untuk *certificate* kita sebelum sertifikat itu di buat.
 ```php
 nano /etc/openvpn/easy-rsa/vars
 ```
@@ -66,14 +66,13 @@ export KEY_OU="MYOrganizationalUnit"
 ```
 sedang variable lain, tidak perlu diganti kecuali memang paham apa yang akan dilakukan.
 
-Selanjutnya kita akan pindah ke direktori `/etc/openvpn` untuk meng*generate* *Diffie-Helman* parameter menggunakan *tool* bawaan dari OPENSSL bernama `dhparam` untuk *certificate* ca 
-```css
+Selanjutnya kita akan pindah ke direktori `/etc/openvpn` untuk meng*generate* *Diffie-Helman* parameter menggunakan *tool* bawaan dari OPENSSL bernama `dhparam` 
 cd /etc/openvpn
 openssl dhparam -out /etc/openvpn/easy-rsa/keys/dh4096.pem 4096
 ```
 opsi -out diatas mendefinisikan lokasi output hasil *generate* dari dhparam.
 
-Dengan demikian *certificate* ca kita telah siap, selanjutnya kita akan meng*generate* *certificate* server  dan server *key*.
+Dengan demikian *dhparam*  kita telah berhasil dibuat, selanjutnya kita akan meng*generate* *certificate* server  dan server *key*.
 
 Untuk menggenerate server *key* dan server *certificate* kita akan pindah satu direktori ke direktory *easy-rsa* dan meng*generate* pki (Public Key Infrastructure) dari file `vars` yang telah kita setting variablenya sebelumnya
 ```php
@@ -86,14 +85,35 @@ Saat menjalankan perintah diatas kita akan mendapatkan notif :
 ```
 NOTE: If you run ./clean-all, I will be doing a rm -rf on /etc/openvpn/easy-rsa/keys
 ```
-Selanjutnya jalankan clean-all untuk mencegah *key* lain yang mungkin konflik dengan *key* server kita nanti.
+Selanjutnya jalankan clean-all untuk mencegah *key* lain yang mungkin konflik dengan *key* server kita nanti, dan membuat ca *certificate*
 ```
 ./clean-all
+./build-ca
 ```
+Perintah `./build-ca` diatas akan memanggil open-ssl interaktif dan memberikan beberapa *challange question* seperti berikut:
+```php
+Generating a 1024 bit RSA private key
+............++++++
+...........++++++
+writing new private key to 'ca.key'
+-----
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter '.', the field will be left blank.
+-----
+Country Name (2 letter code) [KG]:
+State or Province Name (full name) [NA]:
+Locality Name (eg, city) [BISHKEK]:
+Organization Name (eg, company) [OpenVPN-TEST]:
+Organizational Unit Name (eg, section) []:
+Common Name (eg, your name or your server's hostname) []:OpenVPN-CA
+Email Address [me@myhost.mydomain]:
 
-Setelah itu kita akan membuat server *certificate* dan server *key* untuk `OpenVPN` server kita.
+Dengan demikian kita sudah memiliki *certificate* ca master kita, selanjutnya kita akan membuat server *key* dan *certificate*
 
-*Generate certificate* server 
 ```php
 ./build-key-server server
 ```
