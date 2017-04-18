@@ -158,7 +158,7 @@ dh dh1024.pem
 ```php
 ;push "redirect-gateway def1 bypass-dhcp"
 ```
-* ijinkan opsi push "redirect-gateway" dengan menghapus *comment (;)*nya.
+* ijinkan opsi push "redirect-gateway" dengan menghapus *comment(;)*nya.
 
 ```php
 # Certain Windows-specific network settings
