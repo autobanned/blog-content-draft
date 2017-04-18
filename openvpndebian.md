@@ -67,6 +67,7 @@ export KEY_OU="MYOrganizationalUnit"
 sedang variable lain, tidak perlu diganti kecuali memang paham apa yang akan dilakukan.
 
 Selanjutnya kita akan pindah ke direktori `/etc/openvpn` untuk meng*generate* *Diffie-Helman* parameter menggunakan *tool* bawaan dari OPENSSL bernama `dhparam` 
+```php
 cd /etc/openvpn
 openssl dhparam -out /etc/openvpn/easy-rsa/keys/dh4096.pem 4096
 ```
@@ -111,12 +112,24 @@ Organization Name (eg, company) [OpenVPN-TEST]:
 Organizational Unit Name (eg, section) []:
 Common Name (eg, your name or your server's hostname) []:OpenVPN-CA
 Email Address [me@myhost.mydomain]:
-
-Dengan demikian kita sudah memiliki *certificate* ca master kita, selanjutnya kita akan membuat server *key* dan *certificate*
+```
+Dengan demikian kita sudah memiliki *certificate* ca master kita, selanjutnya kita akan membuat  *key* server dan *certificate* server untuk openvpn server dengan perintah berikut:
 
 ```php
 ./build-key-server server
 ```
+kita akan kembali mendapatkan *challenge question* interaktif dengan tambahan extra 2 pertanyaan seperti ini:
+```
+Please enter the following 'extra' attributes
+to be sent with your certificate request
+A challenge password []:
+An optional company name []:
+
+Sign the certificate? [y/n]
+1 out of 1 certificate requests certified, commit? [y/n]
+```
+<sup>seluruh pertanyaan challenge question sebaiknya dibiarkan bernilai default saja dengan menekan `enter`, karna kita sudah menyetting nilai variabelnya di file `vars`. Untuk extra pada saat membuat server *key* dan server *certificate* biarkan bernilai kosong.</sup>
+
 
 
 
