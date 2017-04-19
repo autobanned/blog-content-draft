@@ -201,6 +201,25 @@ menjadi seperti ini
 user openvpn
 group nogroup
 ```
+Agar client yang saling terhubung dapat saling melihat satu sama lain dan berkomunikasi, enable opsi `client-to-client`
+```php
+# Uncomment this directive to allow different
+# clients to be able to "see" each other.
+# By default, clients will only see the server.
+# To force clients to only see the server, you
+# will also need to appropriately firewall the
+# server's TUN/TAP interface.
+client-to-client
+```
+
+Untuk mengijinkan satu *certificate* digunakan oleh lebih dari satu user disaat yang bersamaan, maka kita enable opsi `duplicate-cn` dengan menghapusn*comment*nya
+```php
+# IF YOU HAVE NOT GENERATED INDIVIDUAL
+# CERTIFICATE/KEY PAIRS FOR EACH CLIENT,
+# EACH HAVING ITS OWN UNIQUE "COMMON NAME",
+# UNCOMMENT THIS LINE OUT.
+duplicate-cn
+```
 
 Opsi lain yang bisa ditambahkan atau di ubah untuk memperkuat openvpn server kita seperti
 * merubah *chipper* dari 128 menjadi 256
@@ -283,7 +302,15 @@ sudo ufw status
 ```
 Selanjutnya *save* dan *restart service* openvpn server
 ```php
-systemctl restart openvpn
+sudo systemctl restart openvpn
 ```
 
-Selanjutnya kita akan meng*generate* dan setting *certificate* untuk client
+#### *Generate certificate client*
+
+Selanjutnya kita akan meng*generate* dan setting *certificate* untuk client, untuk melakukan ini kita akan kembali pindah ke direktori easy-rsa dan mulai meng*generate*nya:
+```php
+cd easy-rsa
+sudo ./build-key client1
+```
+<sub> untuk penamaan client1 ini bebas, kita bisa memberikan nama sesuai kemauan kita</sub>
+
