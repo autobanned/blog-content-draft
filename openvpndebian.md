@@ -379,7 +379,7 @@ cipher AES-256-CBC
 auth SHA512
 tls-cipher TLS-DHE-RSA-WITH-AES-256-GCM-SHA384:TLS-DHE-RSA-WITH-AES-128-GCM-SHA256:TLS-DHE-RSA-WITH-AES-256-CBC-SHA:TLS-DHE-RSA-WITH-CAMELLIA-256-CBC-SHA:TLS-DHE-RSA-WITH-AES-128-CBC-SHA:TLS-DHE-RSA-WITH-CAMELLIA-128-CBC-SHA
 ```
-Diahiran file kita akan memasukan *certificate* ca dan server *certificate* (cert) dan server *key* beserta tls-auth dengan ke file `client.ovpn`
+Diahiran file kita akan memasukan *certificate* ca dan server *certificate* (cert) dan server *key* beserta tls-auth ke file `client.ovpn`
 ```
 sudo echo "<ca>" | cat ca.crt >> client.ovpn && sudo echo "</ca>" >> client.ovpn
 sudo echo "<cert>" | cat server.crt >> client.ovpn && sudo echo "</cert>" >> client.ovpn
