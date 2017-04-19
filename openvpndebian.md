@@ -305,7 +305,7 @@ Selanjutnya *save* dan *restart service* openvpn server
 sudo systemctl restart openvpn
 ```
 
-#### *Generate certificate client*
+#### *Generate client credential*
 
 Selanjutnya kita akan meng*generate* dan setting *certificate* untuk client, untuk melakukan ini kita akan kembali pindah ke direktori easy-rsa dan mulai meng*generate*nya:
 ```php
@@ -313,4 +313,81 @@ cd easy-rsa
 sudo ./build-key client1
 ```
 <sub> untuk penamaan client1 ini bebas, kita bisa memberikan nama sesuai kemauan kita</sub>
+
+Pada saat proses *build-key* untuk client ini kita akan kembali mendapatkan *challenge question* variabel yang bisa kita biarkan blank saja agar terisi nilai default sesuai yang kita isi di file `vars` .
+```php
+Please enter the following 'extra' attributes
+to be sent with your certificate request
+A challenge password []:
+An optional company name []:
+```
+dan pertanyaan konfirmasi
+```php
+Sign the certificate? [y/n]
+1 out of 1 certificate requests certified, commit? [y/n]
+```
+kita bisa mengulangi proses *generate* *certificate* dan *keys* untuk beberapa klien sesuai yang diinginkan, dan jika dikemudian hari kita ingin menambahkan client kita dan meng*generate* kembali *credential* baru untuk client yang baru kita cukup melakukan perintah ini:
+```php
+cd /etc/openvpn/easy-rsa && source ./vars && ./build-key client1
+```
+
+Setelah selesai meng*generate credential* *certificate* dan *key* untuk client selanjutnya kita akan membuat client config, untuk mengkonfigurasinya.
+Disini kita akan membuat client *credential* menjadi single file berformat ovpn dimana *certifiate* dan *key* akan di tuliskan secara inline didalam file ovpn ini agar lebih mudah digunakan diberbagai platform.
+
+copy client sample
+```php
+sudo cp /usr/share/doc/openvpn/examples/sample-config-files/client.conf /etc/openvpn/easy-rsa/keys/client.ovpn
+```
+selannjutnya kita akan merubah settingannya:
+
+* rubah baris my-server-1 dengan alamat IP dari openvpn server kita
+```php
+# The hostname/IP and port of the server.
+# You can have multiple remote entries
+# to load balance between the servers.
+remote  172.16.10.5 1194
+;remote my-server-2 1194
+```
+* Hapus *comment* dari baris `user` dan `group` sama seperti yang kita lakukan di settingan `server.conf`
+```php
+# Downgrade privileges after initialization (non-Windows only)
+user nobody
+group no group
+```
+* *Commented out* atau hapus baris SSL/TLS param dan tls-auth karna kita akan memasukan semua file *ca,cert dan key* secara inline di ahir file
+```php
+# SSL/TLS parms.
+# See the server config file for more
+# description.  It's best to use
+# a separate .crt/.key file pair
+# for each client.  A single ca
+# file can be used for all clients.
+#ca ca.crt
+#cert client.crt
+#key client.key
+
+
+
+
+# If a tls-auth key is used on the server
+# then every client must also have the key.
+#tls-auth 1
+```
+* Samakan opsi-opsi lain yang ditambahkan di konfigurasiserver seperti `chipper`, `SHA-auth` dan `tls-chipper`
+```php
+cipher AES-256-CBC
+auth SHA512
+tls-cipher TLS-DHE-RSA-WITH-AES-256-GCM-SHA384:TLS-DHE-RSA-WITH-AES-128-GCM-SHA256:TLS-DHE-RSA-WITH-AES-256-CBC-SHA:TLS-DHE-RSA-WITH-CAMELLIA-256-CBC-SHA:TLS-DHE-RSA-WITH-AES-128-CBC-SHA:TLS-DHE-RSA-WITH-CAMELLIA-128-CBC-SHA
+```
+Diahiran file kita akan memasukan *certificate* ca dan server *certificate* (cert) dan server *key* beserta tls-auth dengan ke file `client.ovpn`
+```
+sudo echo "<ca>" | cat ca.crt >> client.ovpn && sudo echo "</ca>" >> client.ovpn
+sudo echo "<cert>" | cat server.crt >> client.ovpn && sudo echo "</cert>" >> client.ovpn
+sudo echo "<key>" | cat server.key >> client.ovpn && sudo echo "</key>" >> client.ovpn
+sudo echo "key-direction 1" >> client.ovpn
+sudo echo "<tls-auth>" | cat ta.key >> client.ovpn && sudo echo "</tls-auth>" >> client.ovpn
+```
+Selanjutnya kita bisa meng*copy* file `client.ovpn` ke client yang akan terhubung dengan openvpn server menggunakan `scp` atau lainnya,  dan kemudian mengeteset nya. 
+
+Sekian dulu tutorial Install dan setting *secure* openvpn servernya, thx
 
