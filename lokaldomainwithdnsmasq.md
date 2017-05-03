@@ -11,8 +11,7 @@ Summary: Cara membuat domain *private* untuk jaringan lokal/LAN dengan menggunak
 
 Saat kita mempunyai beberapa komputer di jaringan lokal, agar kita dapat saling menghubungi maka 
 kita harus mengingat alamat IP dari tiap komputer yang ingin kita panggil. Alamat IP cukup panjang tidaklah mudah untuk mengingatnya 
-apalagi jika jumlah alamat yang harus kita hafal ada cukup banyak. Untuk mempermudahnya 
-
+apalagi jika jumlah alamat yang harus kita hafal ada cukup banyak. Sebenarnya kita bisa dengan membuat alias IP untuk setiap *workstation/computer* di file `/etc/hosts` tapi jika suatu hari ada workstation / user baru yang bertambah atau berkurang maka kita akan repot karna harus merubahnya secara manual lagi, untuk mempermudah itu maka kita bisa membuat `local domain` pada dns server. Karna yang kita butuhkan hanya `DNS forwader` dan `DHCP server`, maka tidak lah membutuhkan banyak fitur wah dari dns server seperti `Authoritive name`, `DNS Recursive` dll. **Dnsmasq** adalah *tools* yang ringan dan cepat serta mudah dikonfigurasi. Dnsmasq tersedia dihampir seluruh nix system. 
 
 
 
