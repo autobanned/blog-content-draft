@@ -10,7 +10,19 @@ Summary: Take a look at bhyve the BSD Hypervisor. Mengenal, menginstall dan konf
 
 Bhyve adalah *hypervisor* dari komunitas FreeBSD . Jika linux memiliki kernel based *virtualization* yang kita kenal sebagai `KVM` maka `bhyve` bisa kita katakan sebagai `KVM`nya dari  FreeBSD ini. Bhyve ini tergolong teknologi baru untuk dukungan dan stabilitasnya sendiri tentu masih dibawah `KVM` apalagi `VMware` dan `XenServer`, tapi meskipun demikian `bhyve` sudah didukung libvirt untuk mempermudah pengontrolan dan manejemennya.
 
-Pada tutorial ini kita akan membahas tutorial menggunakan bhyve sebagai virtualisasi, bhyve sendiri sudah dibawa secara default di FreeBSD 10.0-RELEASE, untuk menggunakannya kita hanya tinggal meload module nya saja.
+Pada tutorial ini kita akan membahas tutorial menggunakan bhyve sebagai virtualisasi, module bhyve sendiri secara default sudah tersedia sejak FreeBSD 10.0-RELEASE, untuk menggunakannya kita hanya tinggal meload module nya saja.
+
+Di tutorial ini saya menggunakan distribusi FreeBSD 11.0-RELEASE system. Seperti biasa sebelum melakukan penginstallan sebaiknya kita pastikan system kita terupdate, karna update akan sangat berguna untuk keperluan *security system* dan juga perbaikan *bug system*.
+
+```php
+sudo freebsd-update fetch && sudo freebsd-update install
+sudo portnsap fetch update
+sudo pkg upgrade
+```
+
+Selanjutnya kita load bhyve dan module lain yang diperlukan
+```php
+sudo kldload 
 
 
 
