@@ -12,7 +12,7 @@ Bind9 adalah DNS software DNS yang powerfull dan merupakan yang paling banyak di
 
 Di tutorial ini saya akan membahas cara konfigurasi bind di debian jessie, strecth dan ubuntu. 
 Bind sendiri tersedia di hampir semua repositori *official* distro/distribusi GNU/Linux, untuk menginstallnya di di Debian jessie ataupun search maupun ubuntu kita cukup menggunakan apt *package manager* saja. 
-<strong>Untuk keseluruhan aktifitas di tutorial ini saya menggunakan akun dengan hak akses ***root*** atau ***superuser/sudo*** </strong>
+<small><strong>Untuk keseluruhan aktifitas di tutorial ini saya menggunakan akun dengan hak akses ***root*** atau ***superuser/sudo*** </strong></small>
 
 ##### Install
 
