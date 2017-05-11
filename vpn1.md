@@ -18,5 +18,14 @@ VPN juga dapat dijadikan alat untuk membantu ketika kita butuh melakukan aktivit
 
 
 ##### Jenis VPN
-Setelah mengetahui definisi dari VPN sekarang mari kita melihat jenis-jenisnya, VPN sendiri memiliki jenis type yang berbeda satu sama lainnya, let's check it out:
+Setelah mengetahui definisi dari VPN sekarang mari kita melihat jenis-jenisnya, VPN sendiri memiliki jenis atau type yang berbeda satu sama lainnya. Secara umum jenis vpn dibedakan menjadi 2, berdasarkan tipe penggunaannya. 
+
+###### 1. Remote Access VPN
+Merupakan tipe *VPN* yang paling umum digunakan. VPN dengan jenis ini mengnizinkan user untuk terhubung dengan jaringan *private* melalui internet untuk dapat terhubung dan saling bertukar informasi didalamnya. Remote Access VPN biasa digunakan di perusahaan dan pengguna rumahan/individual. VPN jenis ini relative lebih mudah dan murah dalam pembuatan dan perawataanya.Biasa digunakan oleh perusahaan yang memiliki pegawai mobile untuk dapat terhubung kejaringannya atau perusahaan yang memiliki lokasi cabang yang masih berada di satu wilayah geografis.
+
+
+###### 2. Site-to-site
+*VPN* jenis ini juga biasa disebut sebagai Router-to-Router VPN. Biasadi gunakan perusahaan atau korporat yang memiliki kantor cabang yang berlokasi di luar wilayah geografisnya. Kumpulan dari site-to-site VPN yang saling terhubung dengan server yang sama biasa disebut sebagai **Intranet based VPN.** Sedangkan 
+
+
 
