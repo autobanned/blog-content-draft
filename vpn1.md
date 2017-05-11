@@ -18,4 +18,5 @@ VPN juga dapat dijadikan alat untuk membantu ketika kita butuh melakukan aktivit
 
 
 ##### Jenis VPN
+Setelah mengetahui definisi dari VPN sekarang mari kita melihat jenis-jenisnya, VPN sendiri memiliki jenis type yang berbeda satu sama lainnya, let's check it out:
 
