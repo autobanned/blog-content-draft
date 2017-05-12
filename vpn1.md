@@ -25,7 +25,7 @@ Merupakan tipe *VPN* yang paling umum digunakan. VPN dengan jenis ini mengnizink
 
 
 ##### 2. Site-to-site
-*VPN* jenis ini juga biasa disebut sebagai Router-to-Router VPN. Biasadi gunakan perusahaan atau korporat yang memiliki kantor cabang yang berlokasi di luar wilayah geografisnya. Kumpulan dari site-to-site VPN yang saling terhubung dengan server yang sama biasa disebut sebagai **Intranet based VPN.** Sedangkan jaringan yang terhubung ke satu *Site-to-site* VPN untuk dapat terhubung ke jaringan lainnya disebut Extranet **Based VPN**. VPN Jenis ini
+*VPN* jenis ini juga biasa disebut sebagai Router-to-Router VPN karna VPN jenis ini biasanya menggunakan satu Router sebagai server dan yang lain sebagai client, dan sambungan komunikasi baru terhubung ketika kedua router telah melakukan validasi autentikasi. Biasa di gunakan perusahaan atau korporat yang memiliki kantor cabang yang berlokasi di luar wilayah geografisnya. Kumpulan dari site-to-site VPN yang saling terhubung dengan server yang sama biasa disebut sebagai **Intranet based VPN.** Sedangkan jaringan yang terhubung ke satu *Site-to-site* VPN untuk dapat terhubung ke jaringan lainnya disebut Extranet **Based VPN**. VPN Jenis ini
 
 
 
