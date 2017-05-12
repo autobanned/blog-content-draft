@@ -18,14 +18,15 @@ VPN juga dapat dijadikan alat untuk membantu ketika kita butuh melakukan aktivit
 
 
 #### Jenis VPN
-Setelah mengetahui definisi dari VPN sekarang mari kita melihat jenis-jenisnya, VPN sendiri memiliki jenis atau type yang berbeda satu sama lainnya. Secara umum jenis vpn dibedakan menjadi 2, berdasarkan tipe penggunaannya. 
+Setelah mengetahui definisi dari VPN sekarang mari kita melihat jenis-jenisnya, VPN sendiri memiliki jenis atau type yang berbeda satu sama lainnya. Secara umum berdasarkan prinsip dan cara kerja jenis vpn dibedakan menjadi 2, berdasarkan tipe penggunaannya. 
 
 ##### 1. Remote Access VPN
 Merupakan tipe *VPN* yang paling umum digunakan. VPN dengan jenis ini mengnizinkan user untuk terhubung dengan jaringan *private* melalui internet untuk dapat terhubung dan saling bertukar informasi didalamnya. Remote Access VPN biasa digunakan di perusahaan dan pengguna rumahan/individual. VPN jenis ini relative lebih mudah dan murah dalam pembuatan dan perawataanya.Biasa digunakan oleh perusahaan yang memiliki pegawai mobile untuk dapat terhubung kejaringannya atau perusahaan yang memiliki lokasi cabang yang masih berada di satu wilayah geografis.
 
 
 ##### 2. Site-to-site
-*VPN* jenis ini juga biasa disebut sebagai Router-to-Router VPN karna VPN jenis ini biasanya menggunakan satu Router sebagai server dan yang lain sebagai client, dan sambungan komunikasi baru terhubung ketika kedua router telah melakukan validasi autentikasi. Biasa di gunakan perusahaan atau korporat yang memiliki kantor cabang yang berlokasi di luar wilayah geografisnya. Kumpulan dari site-to-site VPN yang saling terhubung dengan server yang sama biasa disebut sebagai **Intranet based VPN.** Sedangkan jaringan yang terhubung ke satu *Site-to-site* VPN untuk dapat terhubung ke jaringan lainnya disebut Extranet **Based VPN**. 
+*VPN* jenis ini juga biasa disebut sebagai Router-to-Router VPN karna VPN jenis ini biasanya menggunakan satu Router sebagai server dan yang lain sebagai client, dan sambungan komunikasi baru terhubung ketika kedua router telah melakukan validasi autentikasi. Biasa di gunakan perusahaan atau korporat yang memiliki kantor cabang yang berlokasi di luar wilayah geografisnya. Kumpulan dari site-to-site VPN yang saling terhubung dengan server yang sama biasa disebut sebagai **Intranet based VPN.** Sedangkan jaringan yang terhubung ke satu *Site-to-site* VPN untuk dapat terhubung ke jaringan lainnya disebut **Extranet Based VPN**. 
+
 
 
 
