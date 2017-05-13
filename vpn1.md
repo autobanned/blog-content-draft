@@ -29,4 +29,4 @@ Merupakan tipe *VPN* yang paling umum digunakan. VPN dengan jenis ini mengnizink
 
 Perbedaan mendasar dari **Remote Access** dan **Site-2-site** *VPN* adalah Remote access menghubungkan tiap-tiap *client*nya dengan jaringan vpn karna itu disebut juga *client based* VPN, sedangkan pada Site-2-site menghubungkan *client* dan keseluruhan jaringan  didalamnya dengan jarinan vpn karna itu disebut juga *Router-to-router* atau *Router based* VPN.
 
-bersambung....
+Selain cara kerjanya, vpn juga sering di klasifikasikan berdasarkan protocol yang digunakannya, untuk bahasan mengenai jenis-jenis protocol yang digunakan untuk membuat VPN kita akan membahasnya di artikel selanjutnya.
