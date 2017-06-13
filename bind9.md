@@ -20,4 +20,8 @@ Bind sendiri tersedia di hampir semua repositori *official* distro/distribusi GN
 apt install bind9 bind9-utils bind9-docs
 ```
 
-Setelah terinstall kita dapat mengkonfigurasi bind sesuai kebutuhan kita, bind dapat digunakan sebagai DHCP
+Setelah terinstall kita dapat mengkonfigurasi bind sesuai kebutuhan kita, Bind9 merupakan software DNS server yang flexible dan powerfull dapat digunakan dari DNS Forwarder hingga membuat authoritative nameserver. Tapi dibalik kehandalannya tersebut bind9 tergolong software yang sulit untuk dikonfigurasi apalagi bagi yang baru mempelajari tentang DNS. 
+
+Untuk mengkonfigurasi bind kita tinggal merubah file konfigurasinya sesuai kebutuhan kita, pada debian dan hampir kebanyakan distro linux file tersebut berada di '/etc/bind`.
+
+###### Menjalankan bind9
