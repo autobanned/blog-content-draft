@@ -20,3 +20,4 @@ Bind sendiri tersedia di hampir semua repositori *official* distro/distribusi GN
 apt install bind9 bind9-utils bind9-docs
 ```
 
+Setelah terinstall kita dapat mengkonfigurasi bind sesuai kebutuhan kita, bind dapat digunakan sebagai DHCP
